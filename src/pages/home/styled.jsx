@@ -2,9 +2,16 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
   flex: 1;
-  background-color: #999999;
+  background-color: #101010;
   align-items: center;
   justify-content: center;
+  border-top-color: #20832c;
+  border-left-color: #135726;
+  border-bottom-color: #071f0d;
+  border-right-color: #135726;
+  border-width: 6px;
+  border-radius: 1px;
+  elevation: 0;
 `;
 
 export const Input = styled.TextInput`
