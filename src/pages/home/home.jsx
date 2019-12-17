@@ -21,34 +21,39 @@ class Home extends React.Component {
       Data: [],
       cc: 1
     };
+
+    this.RegisterNewUser = this.RegisterNewUser.bind(this);
   }
 
   handlerInputName = async name => await this.setState({ name });
   handlerInputMail = async email => await this.setState({ email });
   handlerInputPicker = async picker => await this.setState({ picker });
-  handlerRegister = async () => {
-    let objectJSON = `{
-      name: ${this.state.name},
-      email: ${this.state.email},
-      picker: ${this.state.picker}
-    }`;
+
+  RegisterNewUser = async () => {
+    const objectJSON = {
+      name: this.state.name,
+      email: this.state.email,
+      picker: this.state.picker
+    };
+
+    const JSONstring = JSON.stringify(objectJSON);
 
     await this.setState({
-      name: null,
-      email: null,
+      name: '',
+      email: '',
       picker: 'Feminino',
       cc: this.state.cc + 1
     });
 
     Keyboard.dismiss();
 
-    alert(typeof objectJSON);
-
-    await AsyncStorage.setItem('cadastro', objectJSON);
-    ToastAndroid.showWithGravity(
-      'Item registred with success! ',
-      ToastAndroid.BOTTOM
-    );
+    try {
+      await AsyncStorage.setItem('cadastro', JSONstring);
+    } catch (error) {
+      alert(error);
+    }
+    ToastAndroid.show('Item registred with success! ', ToastAndroid.BOTTOM);
+    //alert('Item registred with success');
   };
 
   handlerShow = async () => {
@@ -64,10 +69,12 @@ class Home extends React.Component {
       <Input
         onChangeText={name => this.handlerInputName(name)}
         placeholder='Insira seu nome aqui'
+        value={this.state.name}
       />
       <Input
         onChangeText={email => this.handlerInputMail(email)}
         placeholder='Insira seu email aqui'
+        value={this.state.email}
       />
 
       <Picker
@@ -78,7 +85,7 @@ class Home extends React.Component {
         <Picker.Item label='Masculino' value='Masculino' />
       </Picker>
 
-      <Submit onPress={this.handlerRegister}>
+      <Submit onPress={this.RegisterNewUser}>
         <Text>
           <Icon name='check' size={18} /> Cadastrar
         </Text>
