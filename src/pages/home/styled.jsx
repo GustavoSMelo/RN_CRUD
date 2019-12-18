@@ -23,7 +23,6 @@ export const Submit = styled.TouchableOpacity`
   height: 50px;
   border-radius: 10px;
   background-color: #20832c;
-  color: #fff;
   align-items: center;
   font-weight: bold;
 `;
@@ -41,4 +40,21 @@ export const Grouper = styled.View`
   flex: 1;
   align-items: center;
   justify-content: center;
+`;
+
+export const RemoveAll = styled.TouchableOpacity`
+  width: 90%;
+  padding: 15px;
+  margin-top: 20px;
+  height: 50px;
+  border-radius: 10px;
+  background-color: #f02711;
+
+  align-items: center;
+  font-weight: bold;
+`;
+
+export const TextRemove = styled.Text`
+  color: #fff;
+  font-weight: bold;
 `;
