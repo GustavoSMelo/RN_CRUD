@@ -7,7 +7,15 @@ import {
   ToastAndroid,
   Keyboard
 } from 'react-native';
-import { Container, Input, Submit, Picker, Grouper } from './styled';
+import {
+  Container,
+  Input,
+  Submit,
+  Picker,
+  Grouper,
+  RemoveAll,
+  TextRemove
+} from './styled';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Navbar from '../../components/navbar';
 
@@ -113,15 +121,15 @@ class Home extends React.Component {
 
         <Submit onPress={this.RegisterNewUser}>
           <Text>
-            <Icon name='check' size={18} /> Cadastrar
+            <Icon name='check' size={18} /> Create
           </Text>
         </Submit>
 
-        <Submit onPress={this.handlerShow}>
-          <Text>
-            <Icon name='check' size={18} /> show
-          </Text>
-        </Submit>
+        <RemoveAll onPress={this.handlerShow}>
+          <TextRemove>
+            <Icon name='remove' size={18} /> Remove all
+          </TextRemove>
+        </RemoveAll>
       </Grouper>
     </Container>
   );
