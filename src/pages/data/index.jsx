@@ -1,5 +1,5 @@
 import React from 'react';
-import { AsyncStorage, Text } from 'react-native';
+import { AsyncStorage, Text, ToastAndroid } from 'react-native';
 import {
   Container,
   UserInfoContainer,
@@ -53,12 +53,23 @@ class Data extends React.Component {
     });*/
   };
 
+  handleDelete = async index => {
+    await this.state.index.map((value, indexValue) => {
+      if (indexValue == index) {
+        AsyncStorage.removeItem(value);
+        ToastAndroid.show('Item removed with success !', ToastAndroid.BOTTOM);
+      }
+    });
+
+    this.forceUpdate();
+  };
+
   render() {
     return (
       <Container>
         <Navbar navigation={this.props.navigation} />
         <Group>
-          {this.state.data.map(item => (
+          {this.state.data.map((item, index) => (
             <UserInfoContainer>
               <MiniUser source={UserSource} />
 
@@ -66,12 +77,12 @@ class Data extends React.Component {
                 {' \n'}Name: {item.name}
                 {' \n'}Email: {item.email}
                 {' \n'}Sex: {item.picker}
+                {' \n'}Index: {index}
               </UserInfoText>
-              <DeleteBtn>
+              <DeleteBtn onPress={() => this.handleDelete(index)}>
                 <DeleteText>
                   {' '}
-                  <Icon name='trash' size={16} color='#fff' />
-                  Delete
+                  <Icon name='trash' size={16} color='#fff' /> Delete
                 </DeleteText>
               </DeleteBtn>
             </UserInfoContainer>
