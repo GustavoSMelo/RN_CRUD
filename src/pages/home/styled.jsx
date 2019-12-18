@@ -3,15 +3,8 @@ import styled from 'styled-components/native';
 export const Container = styled.View`
   flex: 1;
   background-color: #101010;
-  align-items: center;
-  justify-content: center;
-  border-top-color: #20832c;
-  border-left-color: #135726;
-  border-bottom-color: #071f0d;
-  border-right-color: #135726;
-  border-width: 6px;
-  border-radius: 1px;
-  elevation: 0;
+  border-color: #20832c;
+  border-width: 7px;
 `;
 
 export const Input = styled.TextInput`
@@ -42,4 +35,10 @@ export const Picker = styled.Picker`
   width: 90%;
   color: #000;
   border-radius: 10px;
+`;
+
+export const Grouper = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
 `;
