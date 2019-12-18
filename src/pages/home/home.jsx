@@ -7,10 +7,22 @@ import {
   ToastAndroid,
   Keyboard
 } from 'react-native';
-import { Container, Input, Submit, Picker } from './styled';
+import { Container, Input, Submit, Picker, Grouper } from './styled';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Navbar from '../../components/navbar';
 
 class Home extends React.Component {
+  static navigationOptions = {
+    drawerLabel: 'Home',
+    drawerIcon: ({ focus, tintColor }) => {
+      if (focus) {
+        tintColor = '#20832c';
+      }
+
+      return <Icon name='home' color={tintColor} size={24} />;
+    }
+  };
+
   constructor(props) {
     super(props);
 
@@ -24,6 +36,12 @@ class Home extends React.Component {
 
     this.RegisterNewUser = this.RegisterNewUser.bind(this);
   }
+
+  componentDidMount = async () => {
+    const key = await AsyncStorage.getAllKeys();
+
+    key.map(item => this.setState({ cc: this.state.cc + 1 }));
+  };
 
   handlerInputName = async name => await this.setState({ name });
   handlerInputMail = async email => await this.setState({ email });
@@ -48,7 +66,7 @@ class Home extends React.Component {
     Keyboard.dismiss();
 
     try {
-      await AsyncStorage.setItem('cadastro', JSONstring);
+      await AsyncStorage.setItem(`Registro${this.state.cc}`, JSONstring);
     } catch (error) {
       alert(error);
     }
@@ -57,45 +75,54 @@ class Home extends React.Component {
   };
 
   handlerShow = async () => {
-    const key = await AsyncStorage.getAllKeys();
+    /*const key = await AsyncStorage.getAllKeys();
     const result = await AsyncStorage.multiGet(key);
 
-    result.map(item => alert(JSON.parse(item)));
+    return await result.map(item => alert(item));*/
+
+    await AsyncStorage.clear();
+    return ToastAndroid.show(
+      'All itens removed with success! ',
+      ToastAndroid.BOTTOM
+    );
   };
 
   render = () => (
     <Container>
+      <Navbar navigation={this.props.navigation} />
       <StatusBar hidden={true} />
-      <Input
-        onChangeText={name => this.handlerInputName(name)}
-        placeholder='Insira seu nome aqui'
-        value={this.state.name}
-      />
-      <Input
-        onChangeText={email => this.handlerInputMail(email)}
-        placeholder='Insira seu email aqui'
-        value={this.state.email}
-      />
+      <Grouper>
+        <Input
+          onChangeText={name => this.handlerInputName(name)}
+          placeholder='Insira seu nome aqui'
+          value={this.state.name}
+        />
+        <Input
+          onChangeText={email => this.handlerInputMail(email)}
+          placeholder='Insira seu email aqui'
+          value={this.state.email}
+        />
 
-      <Picker
-        selectedValue={this.state.picker}
-        onValueChange={(itemValue, _) => this.handlerInputPicker(itemValue)}
-      >
-        <Picker.Item label='Feminino' value='Feminino' />
-        <Picker.Item label='Masculino' value='Masculino' />
-      </Picker>
+        <Picker
+          selectedValue={this.state.picker}
+          onValueChange={(itemValue, _) => this.handlerInputPicker(itemValue)}
+        >
+          <Picker.Item label='Feminino' value='Feminino' />
+          <Picker.Item label='Masculino' value='Masculino' />
+        </Picker>
 
-      <Submit onPress={this.RegisterNewUser}>
-        <Text>
-          <Icon name='check' size={18} /> Cadastrar
-        </Text>
-      </Submit>
+        <Submit onPress={this.RegisterNewUser}>
+          <Text>
+            <Icon name='check' size={18} /> Cadastrar
+          </Text>
+        </Submit>
 
-      <Submit onPress={this.handlerShow}>
-        <Text>
-          <Icon name='check' size={18} /> show
-        </Text>
-      </Submit>
+        <Submit onPress={this.handlerShow}>
+          <Text>
+            <Icon name='check' size={18} /> show
+          </Text>
+        </Submit>
+      </Grouper>
     </Container>
   );
 }
