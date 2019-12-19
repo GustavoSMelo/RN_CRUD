@@ -7,11 +7,16 @@ import {
   MiniUser,
   Group,
   DeleteBtn,
-  DeleteText
+  DeleteText,
+  EditBtn,
+  EditText
 } from './styled';
 import UserSource from '../../../assets/user.png';
 import Navbar from '../../components/navbar';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import { Edit } from '../../container/container';
+import { createStackNavigator } from 'react-navigation-stack';
+import { createAppContainer } from 'react-navigation';
 
 class Data extends React.Component {
   static navigationOptions = {
@@ -63,21 +68,24 @@ class Data extends React.Component {
 
     this.forceUpdate();
   };
-
   render() {
     return (
       <Container>
         <Navbar navigation={this.props.navigation} />
         <Group>
           {this.state.data.map((item, index) => (
-            <UserInfoContainer>
+            <UserInfoContainer key={item.name}>
               <MiniUser source={UserSource} />
 
               <UserInfoText>
                 {' \n'}Name: {item.name}
+                {' \n'}
                 {' \n'}Email: {item.email}
+                {' \n'}
                 {' \n'}Sex: {item.picker}
+                {' \n'}
                 {' \n'}Index: {index}
+                {' \n'}
               </UserInfoText>
               <DeleteBtn onPress={() => this.handleDelete(index)}>
                 <DeleteText>
@@ -85,6 +93,18 @@ class Data extends React.Component {
                   <Icon name='trash' size={16} color='#fff' /> Delete
                 </DeleteText>
               </DeleteBtn>
+              <EditBtn
+                onPress={() =>
+                  this.props.navigation.navigate('Edit', {
+                    index: index,
+                    navigation: this.props.navigation
+                  })
+                }
+              >
+                <EditText>
+                  <Icon name='pencil-alt' size={16} color='#000' /> Edit
+                </EditText>
+              </EditBtn>
             </UserInfoContainer>
           ))}
         </Group>
@@ -92,5 +112,4 @@ class Data extends React.Component {
     );
   }
 }
-
 export default Data;
