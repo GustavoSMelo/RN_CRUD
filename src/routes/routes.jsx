@@ -1,6 +1,7 @@
 import { createAppContainer } from 'react-navigation';
 import { createDrawerNavigator } from 'react-navigation-drawer';
-import { Data, Home } from '../container/container';
+import { Data, Home, Edit } from '../container/container';
+import { createStackNavigator } from 'react-navigation-stack';
 
 const DrawerNav = createDrawerNavigator(
   {
@@ -10,6 +11,13 @@ const DrawerNav = createDrawerNavigator(
 
     Data: {
       screen: Data
+    },
+    Edit: {
+      screen: Edit,
+      navigationOptions: {
+        drawerLabel: () => null,
+        drawerIcon: () => null
+      }
     }
   },
   {
