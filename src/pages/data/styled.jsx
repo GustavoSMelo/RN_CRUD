@@ -20,11 +20,12 @@ export const UserInfoText = styled.Text`
   margin: 5px;
   padding: 5px;
   font-weight: bold;
+  width: 38%;
 `;
 
 export const MiniUser = styled.Image`
-  width: 60px;
-  height: 60px;
+  width: 17%;
+  height: 90%;
   align-items: center;
   margin: 5px;
 `;
@@ -37,15 +38,29 @@ export const Group = styled.View`
 
 export const DeleteBtn = styled.TouchableOpacity`
   background-color: #f02711;
-  color: #fff;
   padding: 5px;
   margin: 3px;
   height: 30px;
   border-radius: 10px;
   justify-content: flex-end;
+  flex-direction: column;
 `;
 
 export const DeleteText = styled.Text`
   color: #fff;
+  font-weight: bold;
+`;
+
+export const EditBtn = styled.TouchableOpacity`
+  background-color: #f0cd69;
+  padding: 5px;
+  margin: 5px;
+  border-radius: 10px;
+  flex-direction: column;
+  height: 30px;
+`;
+
+export const EditText = styled.Text`
+  color: #000;
   font-weight: bold;
 `;
